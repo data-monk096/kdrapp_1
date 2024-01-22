@@ -1,0 +1,132 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static 'add_task_admin.css' %}">
+
+  {% if user.is_superuser %}
+    <div class="container text-center">
+      <button id="addTaskBtn" class="btn btn-success btn-lg mt-4">Add New Task</button>
+      <button id="assignTaskBtn" class="btn btn-success btn-lg max-width-5 mt-4">Assign Task</button>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 mx-auto">
+          <div class="card-title">
+            <h2>Admin's Rule!</h2>
+          </div>
+          <div class="card-body">
+            <div class="card-text" style="color: red;">
+              These rules are designed to make the dormitory cleaning process fair, engaging, and efficient while considering
+              the specific context of cleaning tasks. Feel free to adapt them further based on the unique requirements and
+              dynamics of your dormitory cleaning system.
+              <div class="rules">
+                <li id="rules_list">Rotate the assignment of tasks among users in a fair manner.</li>
+                <li id="rules_list">Ensures that each user gets a variety of tasks and prevents monotony.</li>
+                <li id="rules_list">Try to prevent burnout and ensure a balanced workload, for better results and satisfaction.</li>
+                <li id="rules_list">Aim for an equal distribution of workload among users over time.</li>
+                <li id="rules_list">Check the availability of users before assigning tasks.</li>
+                <li id="rules_list">Finally, Don't forget to Recognize and reward users for exceptional task performance.</li>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% else %}
+
+    <div class="card-text mt-4 mx-auto text-center" style="color: orange">
+      <h3 class="text_warning">You are not authorized to change or edit tasks.</h3>
+      <h2>Please login as an admin.</h2>
+    </div>
+
+  {% endif %}
+
+  <div class="container-fluid">
+    <div class="row border-none">
+      <div class="col-md-10 mx-auto">
+        <div class="card-body main-form-background">
+          <!-- Input form -->
+          <div id="addTaskForm">
+            {% if user.is_superuser %}
+              <form method="post">
+                {% csrf_token %}
+                <div class="mb-3 mt-4">
+                  <label for="taskName" class="form-label">Task Name</label>
+                  <input type="text" class="form-control" id="taskName" name="taskName" aria-describedby="taskNameHelp">
+                </div>
+                <div class="mb-3">
+                  <label for="taskDescription" class="form-label">Task Description</label>
+                  <textarea class="form-control" id="taskDescription" name="taskDescription" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Task</button>
+              </form>
+            {% endif %}
+          </div>
+
+          <!-- Input form options -->
+          <div id="assignTaskForm">
+            {% if user.is_superuser %}
+              <form method="post">
+                {% csrf_token %}
+                <div class="mb-3 mt-4">
+                  <label for="assignUsername" class="form-label">Username</label>
+                  <select class="form-select" id="assignUsername" name="assignUsername">
+                    {% for user in users %}
+                      <option class='dropdown' value="{{ user }}">{{ user }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="assignTaskName" class="form-label">Task Name</label>
+                  <select class="form-select" id="assignTaskName" name="assignTaskName">
+                    {% for task in tasks %}
+                      <option class='dropdown' value="{{ task.task_name }}">{{ task.task_name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="assignTaskDescription" class="form-label">Task Description</label>
+                  <select class="form-select" id="assignTaskDescription" name="assignTaskDescription">
+                    {% for task in tasks %}
+                      <option class='dropdown' value="{{ task.description }}">{{ task.description }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="row">
+                  <div class="col-md-5">
+                    <label for="startDate" class="form-label">Start Date</label>
+                    <input type="date" class="form-control" id="startDate" name="startDate">
+                  </div>
+                  <div class="col-md-5 mx-auto">
+                    <label for="endDate" class="form-label">End Date</label>
+                    <input type="date" class="form-control" id="endDate" name="endDate">
+                  </div>
+                </div>
+                <div class="col-6 mt-4">
+                  <button type="submit" class="btn btn-success">Assign Task</button>
+                </div>
+              </form>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <script>
+    document.getElementById('addTaskBtn').addEventListener('click', function () {
+      document.getElementById('addTaskForm').style.display = 'block';
+      document.getElementById('assignTaskForm').style.display = 'none';
+    });
+
+    document.getElementById('assignTaskBtn').addEventListener('click', function () {
+      document.getElementById('addTaskForm').style.display = 'none';
+      document.getElementById('assignTaskForm').style.display = 'block';
+    });
+  </script>
+
+{% endblock %}

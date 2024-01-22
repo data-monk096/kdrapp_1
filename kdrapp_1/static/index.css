@@ -1,0 +1,50 @@
+/* Resetting default margin and padding for various elements */
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+figure,
+blockquote,
+dl,
+dd {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set the default font family for the entire page */
+body {
+    font-family: 'Roboto', sans-serif; /* Use Google's Roboto font for a Material Design feel */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f5f5f5; /* Light background color */
+    color: #333; /* Dark text color */
+  }
+/* Resetting margin and padding for container-fluid class */
+.container-fluid {
+    margin: 0;
+    padding: 0;
+}
+
+/* Styling for the navbar */
+.navbar {
+    background-color: #dfe4d6e9; /* Blue background color (you can change it to fit your color scheme) */
+}
+
+/* Override Bootstrap's default button styles within the .navbar */
+.navbar .btn {
+    background-color: #061835; /* Google's primary color */
+    color: #ffffff; /* White text color */
+    border: 1px solid #eaebed; /* Same border color as background for a cleaner look */
+}
+
+/* Hover and focus styles for buttons */
+.navbar .btn:hover,
+.navbar .btn:focus {
+    background-color: #0c182e; /* Lighten the color on hover/focus */
+    color: #ffffff;
+    border: 1
+}

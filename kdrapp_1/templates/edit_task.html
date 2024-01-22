@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+{% block search %}
+    <div class="container mt-4" style="background-color: rgba(211, 221, 230, 0.404); border: 2px solid rgba(0, 128, 0, 0); color: green;">
+        <h2>User Tasks</h2>
+
+        <!-- Search Form -->
+        <form method="GET" class="mb-3">
+            <div class="row">
+                <div class="col">
+                    <input type="text" name="query" class="form-control" placeholder="Search by task name, username, or date" value="{{ query }}">
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">UserName</th>
+                        <th scope="col">Task Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user_task in user_tasks %}
+                        <tr>
+                            <td>{{ user_task.username }}</td>
+                            <td>{{ user_task.task.task_name }}</td>
+                            <td>{{ user_task.task.description }}</td>
+                            <td>{{ user_task.start_date }}</td>
+                            <td>{{ user_task.end_date }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

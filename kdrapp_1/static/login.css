@@ -1,0 +1,29 @@
+/* Custom Kaggle-like styles */
+.kaggle-input {
+  border: 2px solid #20BEFF;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.kaggle-btn {
+  background-color: #20BEFF;
+  color: #fff;
+}
+
+.kaggle-link {
+  color: #20BEFF;
+  text-decoration: none;
+}
+
+.kaggle-link:hover {
+  text-decoration: underline;
+}
+body {
+  font-family: 'Roboto', sans-serif; /* Use Google's Roboto font for a Material Design feel */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f5f5f5; /* Light background color */
+  color: #333; /* Dark text color */
+}

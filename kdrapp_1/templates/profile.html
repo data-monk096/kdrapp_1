@@ -1,0 +1,108 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block profile %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Friends Dormitory</title>
+  <link rel="stylesheet" href="{% static 'index.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'profile.css' %}">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="https://www.janabaznica.lv/">
+        <img src="https://img.freepik.com/free-photo/holy-bible-with-rays-light-coming-out-ai-generative_123827-23906.jpg?w=1060&t=st=1705733240~exp=1705733840~hmac=eef4c374696be5757edc01fcce9125e84756d1ed6063186416652fd9afaa6bcc"
+          alt="KDR Logo" width="30" height="30" class="d-inline-block align-text-top rounded-circle">
+      </a>
+      <div class="navbar button-btn me-auto" id="navbarSupportedContent">
+        <button class="btn ms-2 btn-outline-secondary" type="button">
+          <a href="{% url 'homepage' %}" class="btn-link text-decoration-none text-reset">
+            <i class="bi bi-house-door"></i> Home
+          </a>
+        </button>
+        <button class="btn ms-2 btn-outline-secondary" type="button">
+          <a href="{% url 'profile' %}" class="btn-link text-decoration-none text-reset">
+            <i class="bi bi-person"></i> Profile
+          </a>
+        </button>
+        <button class="btn ms-2 btn-outline-secondary" type="button">
+          <a href="{% url 'edit_task' %}" class="btn-link text-decoration-none text-reset">
+            <i class="bi bi-card-checklist"></i> Edit Task
+          </a>
+        </button>
+        <button class="btn ms-2 btn-outline-secondary" type="button">
+          <a href="{% url 'task_add_assign' %}" class="btn-link text-decoration-none text-reset">
+            <i class="bi bi-card-checklist"></i> Tasks
+          </a>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4 profile-pic">
+    <div class="row">
+      <div class="col-4 mt-2"></div>
+      <div class="col-4">
+        <div class="text-center">
+          <img src="{% url 'user_photo' username=user.username %}" alt="User Photo" class="image">
+          <h1>{{ user_profile.username }}</h1>
+          <div class="card-body">
+            <!-- profile-details section -->
+            <p><strong>Email:</strong> {{ user_profile.email }}</p>
+            {% if user_profile.date_of_birth %}
+            <p><strong>Date of Birth:</strong> {{ user_profile.date_of_birth }}</p>
+            {% endif %}
+            {% if user_profile.bio %}
+            <p><strong>Bio:</strong> {{ user_profile.bio }}</p>
+            {% endif %}
+            <p><strong>Joined Date:</strong> {{ user_profile.join_date }}</p>
+            <h2>Cleaning Schedule</h2>
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped">
+                <tbody>
+                  {% if user_profile.task %}
+                  <tr>
+                    <td>{{ user_profile.task.task_name }}, {{ user_profile.task.description }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Task starting from:</strong> {{ user_profile.start_date }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Task ends on:</strong> {{ user_profile.end_date }}</td>
+                  </tr>
+                  {% else %}
+                  <tr>
+                    <td>No cleaning schedule available.</td>
+                  </tr>
+                  {% endif %}
+                </tbody>
+              </table>
+            </div>
+            <div class="profile-actions">
+              <button class="btn btn-edit-profile" type="button">
+                <a href="{% url 'log_out' %}" class="btn-link text-decoration-none text-reset">
+                  <i class="bi bi-card-checklist"></i> Log Out
+                </a>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script
+  </body>
+  </html>
+  {% endblock profile %}
+  
